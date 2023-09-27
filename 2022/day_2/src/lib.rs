@@ -1,11 +1,13 @@
-pub fn score_rps(input: &str) -> String {
+pub fn score_rps(input: &str, first: bool) -> String {
     //println!("input: {}", input);
     let result = input
         .split("\r\n")
         .map(|round| {
            // println!("{}", round);
             let fight: Vec<&str> = round.split_whitespace().collect();
-
+            if first {
+                return score_rps_match(fight);
+            }
             return score_rps_match_result(fight);
 
 
@@ -17,6 +19,8 @@ pub fn score_rps(input: &str) -> String {
     "result".to_string()
 
 }
+
+
 fn score_rps_match_result(input: Vec<&str>) -> i32 {
     match input[1] {
         //draw (A rock), (B Paper) and (C Scissor)
